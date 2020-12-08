@@ -1,7 +1,6 @@
 //Dependencies
 const mysql = require('mysql');
 const inquirer = require("inquirer");
-const { resolveSoa } = require('dns');
 
 var connection = mysql.createConnection({
     host: "localhost",
