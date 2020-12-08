@@ -1,6 +1,7 @@
 //Dependencies
 const mysql = require('mysql');
 const inquirer = require("inquirer");
+const cTable = require('console.table')
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -18,6 +19,7 @@ connection.connect(function (err) {
 
 function trackEmployees(){
 inquirer.prompt({
+    name:"objective",
     message: "What would you like to do next?",
     type: "list",
     choices: [
@@ -29,8 +31,7 @@ inquirer.prompt({
         "View Employees",
         "Update Employee Role",
         "Exit application"
-    ],
-    name:"objective"
+    ]
 }).then(function(answer){
     switch(answer.objective) {
         case "Add Department":
@@ -68,11 +69,43 @@ inquirer.prompt({
 })
 }
 
-//Functions needed/Todo's:
-// Add Department: newDepartment();
+//Functions
+// View Roles: roles();
+function roles(){
+    connection.query("SELECT * FROM roles", function(err, choice){
+        console.table(choice); //Shows updated table w/ data
+        trackEmployees();
+    })
+}
+// View Employee: employees();
+function employees(){
+connection.query("SELECT * FROM employee", function(err, choice){
+    console.table(choice);  //Shows updated table w/ data
+    trackEmployees();
+})
+}
+// View Departments: departments();
+function departments(){
+    connection.query("SELECT * FROM department", function (err, choice){
+        console.table(choice);  //Shows updated table w/ data
+        trackEmployees();
+    })
+}
+
+// Add Department: newDepartment() - Completed
+function newDepartment() {
+    inquirer.prompt([{
+        type: "input",
+        name: "department",
+        message: "What department would you like to add?"
+    }, ]).then(function(choice) {
+        connection.query('INSERT INTO department (name) VALUES (?)', [choice.department], function(err, data) {
+            if (err) throw err;
+            console.table("Department Added");
+           trackEmployees();
+        })
+    })
+}
 // Add Role: newRole();
 // Add Employee: newEmployee();
-// View Departments: departments();
-// View Roles: roles();
-// View Employee: employee();
 // Update Employee Role: updateEmployee();
