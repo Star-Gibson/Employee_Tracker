@@ -31,8 +31,12 @@ When utilizing this application be sure to first run a `npm install` to ensure y
 ## Test
 * Using a CLI run `npm test`
 
-## Credits
-* 
+## Credits/Citations
+* Sole Contributor
+* https://www.sqlservertutorial.net/sql-server-basics/sql-server-insert/
+* https://stackoverflow.com/questions/59905401/inquirer-responses-used-in-inserted-to-database-with-mysql
+* https://www.mysqltutorial.org/mysql-nodejs/insert/
+* https://www.npmjs.com/package/console.table
 
 ## License
 This project is licensed under the MIT License.
