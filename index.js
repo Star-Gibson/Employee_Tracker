@@ -102,7 +102,7 @@ function newDepartment() {
         connection.query('INSERT INTO department (name) VALUES (?)', (choice.department), function(err, data) {
             if (err) throw err;
             console.table("Department Added")
-            console.table(data);
+            console.table(choice);
            
         })
        trackEmployees(); 
@@ -127,14 +127,45 @@ function newRole() {
             name: "deptID"
         }
     ]).then(function (choice) {
-        connection.query("INSERT INTO roles (title, salary, department_id) values (?, ?, ?)", (choice.title, choice.salary, choice.deptID), function (err, data) {
+        connection.query("INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?)", [choice.title, choice.salary, choice.deptID], function (err, data) {
             if (err) throw err;
             console.table("Role Added"); 
-            console.table(data)
+            console.table(choice)
         })
        trackEmployees();
     })
 
 }
-// Add Employee: newEmployee();
-// Update Employee Role: updateEmployee();
+// Add Employee: newEmployee() - Completed
+function newEmployee() {
+    inquirer.prompt([{
+            type: "input",
+            name: "first",
+            message: "What is the first name of the employee?"
+        },
+        {
+            type: "input",
+            name: "last",
+            message: "What is the last name of the employee"
+        },
+        {
+            type: "number",
+            name: "rID",
+            message: "What is this employee's role ID?"
+        },
+        {
+            type: "number",
+            name: "mID",
+            message: "What is this employee's manager's ID?"
+        }
+    ]).then(function(choice) {
+        connection.query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [choice.first, choice.last, choice.rID, choice.mID], function(err, data) {
+            if (err) throw err;
+            console.table("Employee Added");
+            console.table(choice);
+            trackEmployees();
+        })
+    })
+}
+
+// Update Employee Role: updateEmployee() -
