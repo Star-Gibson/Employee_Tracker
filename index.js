@@ -146,7 +146,7 @@ function newEmployee() {
         {
             type: "input",
             name: "last",
-            message: "What is the last name of the employee"
+            message: "What is the last name of the employee?"
         },
         {
             type: "number",
