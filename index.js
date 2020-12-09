@@ -70,24 +70,24 @@ inquirer.prompt({
 }
 
 //Functions
-// View Roles: roles();
+// View Roles: roles() - Completed
 function roles(){
-    connection.query("SELECT * FROM roles", function(err, choice){
-        console.table(choice); //Shows updated table w/ data
+    connection.query("SELECT * FROM roles", function(err, data){
+        console.table(data);
         trackEmployees();
     })
 }
-// View Employee: employees();
+// View Employee: employees() - Completed
 function employees(){
-connection.query("SELECT * FROM employee", function(err, choice){
-    console.table(choice);  //Shows updated table w/ data
+connection.query("SELECT * FROM employee", function(err, data){
+    console.table(data);  
     trackEmployees();
 })
 }
-// View Departments: departments();
+// View Departments: departments() - Completed
 function departments(){
-    connection.query("SELECT * FROM department", function (err, choice){
-        console.table(choice);  //Shows updated table w/ data
+    connection.query("SELECT * FROM department", function (err, data){
+        console.table(data); 
         trackEmployees();
     })
 }
@@ -98,14 +98,43 @@ function newDepartment() {
         type: "input",
         name: "department",
         message: "What department would you like to add?"
-    }, ]).then(function(choice) {
-        connection.query('INSERT INTO department (name) VALUES (?)', [choice.department], function(err, data) {
+    }, ]).then(function (choice) {
+        connection.query('INSERT INTO department (name) VALUES (?)', (choice.department), function(err, data) {
             if (err) throw err;
-            console.table("Department Added");
-           trackEmployees();
+            console.table("Department Added")
+            console.table(data);
+           
         })
+       trackEmployees(); 
     })
 }
-// Add Role: newRole();
+// Add Role: newRole() - Completed
+function newRole() {
+    inquirer.prompt([
+        {
+            message: "What is the employee's title?",
+            type: "input",
+            name: "title"
+        }, 
+        {
+            message: "What is the yearly salary for this employee?",
+            type: "number",
+            name: "salary"
+        }, 
+        {
+            message: "What is the employee's department ID?",
+            type: "number",
+            name: "deptID"
+        }
+    ]).then(function (choice) {
+        connection.query("INSERT INTO roles (title, salary, department_id) values (?, ?, ?)", (choice.title, choice.salary, choice.deptID), function (err, data) {
+            if (err) throw err;
+            console.table("Role Added"); 
+            console.table(data)
+        })
+       trackEmployees();
+    })
+
+}
 // Add Employee: newEmployee();
 // Update Employee Role: updateEmployee();

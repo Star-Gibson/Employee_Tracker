@@ -1,4 +1,3 @@
---Creating Database 
 DROP DATABASE IF EXISTS trackerDB;
 
 CREATE DATABASE trackerDB;
@@ -25,7 +24,7 @@ CREATE TABLE employee(
     first_name VARCHAR(30),
     last_name VARCHAR(30),
     manager_id INT(10) NULL, 
-    role_id INT 
+    role_id INT(10)
 );
 
 
