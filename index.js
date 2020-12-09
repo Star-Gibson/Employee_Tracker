@@ -168,4 +168,23 @@ function newEmployee() {
     })
 }
 
-// Update Employee Role: updateEmployee() -
+// Update Employee Role: updateEmployee() - Completed
+function updateEmployee() {
+    inquirer.prompt([
+        {
+            message: "Which employee needs to be updated?",
+            type: "input",
+            name: "name"
+        }, {
+            message: "What is the employee's new role ID?",
+            type: "input",
+            name: "rID"
+        }
+    ]).then(function (choice) {
+        connection.query("UPDATE employee SET role_id = ? WHERE first_name = ?", [choice.rID, choice.name], function (err, data) {
+            console.table(choice);
+        })
+        trackEmployees();
+    })
+
+}
